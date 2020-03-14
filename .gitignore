@@ -1,4 +1,4 @@
 // .gitignore
 
 # api keys
-src/secret.js       <-- add this line
+/src/secret.js
