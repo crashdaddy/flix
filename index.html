@@ -67,15 +67,80 @@ display:inline;
 margin: 1px;
 }
 
+#yearSelect {
+    -webkit-box-shadow: 3px 4px 15px -1px rgba(110,110,110,0.71); 
+    box-shadow: 3px 4px 15px -1px rgba(110,110,110,0.71);
+}
+
+#genreSelect {
+        -webkit-box-shadow: 3px 4px 15px -1px rgba(110,110,110,0.71); 
+    box-shadow: 3px 4px 15px -1px rgba(110,110,110,0.71);
+}
+.select {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 140px;
+}    .select select {
+        font-family: 'Arial';
+        display: inline-block;
+        width: 100%;
+        cursor: pointer;
+        padding: 10px 15px;
+        outline: 0;
+        border: 0px solid #000000;
+        border-radius: 5px;
+        background: #bedaf3;
+        color: #7b8908;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+        .select select::-ms-expand {
+            display: none;
+        }
+        .select select:hover,
+        .select select:focus {
+            color: #fd0eff;
+            background: #acf39e;
+        }
+        .select select:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+.select_arrow {
+    position: absolute;
+    top: 56px;
+    right: 20px;
+    pointer-events: none;
+    border-style: solid;
+    border-width: 8px 5px 0px 5px;
+    border-color: #7b7b7b transparent transparent transparent;
+}
+.select select:hover ~ .select_arrow,
+.select select:focus ~ .select_arrow {
+    border-top-color: #000000;
+}
+.select select:disabled ~ .select_arrow {
+    border-top-color: #cccccc;
+}
 </style>
 </head>
     <body>
-       <div id="bannerDiv"> <img id ="banner" src="img/filmReel.png" style="height: 100px;margin-right: 10px;">
-        <img src="img/flix.png">
-        <select id="yearSelect" onchange="refreshMovies(this.value)" style="width:80px;vertical-align:top;margin-top:50px;"></select>
-        <select id="genreSelect" onchange="filterGenre(this.value)" style="vertical-align:top;margin-top: 50px;">
+       <div id="bannerDiv"> <img id ="banner" src="img/filmReel.png" style="float:left;height: 100px;margin-right: 10px;">
+        <img src="img/flix.png" style="float:left;">
+        <div class="select">
+        <select id="yearSelect" onchange="refreshMovies(this.value)" style="vertical-align:top;margin-top:40px;"></select>
+        <div class="select_arrow">
+        </div>
+        </div>
+        <div class="select">
+        <select id="genreSelect" onchange="filterGenre(this.value)" style="vertical-align:top;margin-top: 40px;">
         <option value="" selected>Any genre</option>
         </select>
+        <div class="select_arrow">
+        </div>
+        </div>
        </div>
        <div id="output" style="margin-left:60px;width:60%;float:left;clear:both;margin-top:130px;"></div>
        <div id="details">

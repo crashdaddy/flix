@@ -143,7 +143,7 @@ $(window).scroll(function () {
 // sets up the select pulldown for the years 1929-2020
 const populateYearSelect = () => {
     let yearSelect = document.getElementById("yearSelect");
-    for (let year=1929;year<2021;year++){
+    for (let year=1888;year<2021;year++){
         yearSelect.options[yearSelect.options.length] = new Option(year, year);
         if (year===releaseYear) {
             yearSelect.options[yearSelect.options.length-1].selected=true;
