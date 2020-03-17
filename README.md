@@ -9,6 +9,8 @@ Using the tmdb API
 
  Also adjusted the time scale to go back to 1888 instead of 1929 for the start. It turns out there were a lot of movies made before 1929.
 
+ Added scrolltop(0) to details panel to scroll back to top when user changes movies
+
  TODO:
    -- change the css on the pulldowns because that pink and green is kind of clashy. I built it based on the old design.
 
@@ -18,13 +20,19 @@ Using the tmdb API
 
         -- popularity
 
+          -- DONE also added votes, tagline, etc
+
         -- income
+
+          -- DONE budget, revenue
 
         -- cast 
 
           -- DONE. Added cast photos and cast member details when user clicks the photo
 
         -- genres
+
+          -- DONE
 
    -- embed trailers if they're available. Right now they have links in the API to youtube trailers, so the player would have to be real tiny to fit in the details panel, or else a pop-up or just an external link
 

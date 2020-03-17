@@ -92,20 +92,49 @@ const showCastMemberDetails = (id) => {
     .then(res => res.json())
         .then(castMember => {
             let htmlStr = "";
-            htmlStr+=`<img src="https://image.tmdb.org/t/p/w500/${castMember.profile_path}" style="max-width:100%;">
+            htmlStr+=`<img src="https://image.tmdb.org/t/p/w500/${castMember.profile_path}" style="border:1px solid black;max-width:100%;">
                       <br/>
                       <h1>${castMember.name}</h1>
                       <br/>
-                      Popularity: ${castMember.popularity}
+                      <img src="img/star.png" style="width:20px;height:20px"> Popularity: ${castMember.popularity}
                       <br/>
                       (b) ${castMember.birthday} ${castMember.place_of_birth} 
                       <br/>
                       (d) ${castMember.deathday}
                       <br/>
-                      <p>${castMember.biography.replace(/\n/g,'<br/>')}
+                      <p><div style="font-size:10pt">${castMember.biography.replace(/\n/g,'<br/>')}</div>
                       <br/>
                     `
             $("#castMember").html(htmlStr);
+        })
+}
+
+// gets the deeper API data for each individual movie
+// ie; budget, revenue, etc
+const showMovieDetails = (id) => {
+    let detailsHTML = "";
+    let detailsURL = `https://api.themoviedb.org/3/movie/${id}?api_key=${APIkey}`;
+    fetch(detailsURL)
+    .then(res => res.json())
+        .then(movie => {
+            detailsHTML += `<h2>${movie.tagline}</h2>
+                            <br/>
+                            <img src="img/star.png" style="width:20px;height:20px"> Popularity: ${movie.popularity}
+                            Votes: ${movie.vote_count}  Avg: ${movie.vote_average}
+                            <p/>
+                            Runtime: ${movie.runtime} min
+                            <p>
+                            Budget: $${movie.budget}  Revenue: $${movie.revenue}
+                            <p>
+                            Status: ${movie.status}   Release Date: ${movie.release_date}
+                            <p/>
+                            Genre(s): `;
+            
+            for (let i=0;i<movie.genres.length;i++) {
+                detailsHTML += movie.genres[i].name + " ";
+            }
+
+            $("#movieDetails").html(detailsHTML);
         })
 }
 
@@ -135,6 +164,7 @@ const showDetails = (id) => {
     $("#descriptionDiv").html(descStr);
     showCast(id);
     showReviews(id);
+    showMovieDetails(id);
 }
 
 // clears out the current contents of the details panel
@@ -146,8 +176,9 @@ const clearDetailsPanel = () => {
     $("#titleDiv").html("");
     $("#descriptionDiv").html("");
     $("#castMember").html("");
+    $("#movieDetails").html("");
     $("#cast").html("");
-    $("#details").scrollTop=0;
+    $("#details").scrollTop(0);
 }
 
 ///////////////////////////////////////////
