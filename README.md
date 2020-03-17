@@ -11,6 +11,8 @@ Using the tmdb API
 
  Added scrolltop(0) to details panel to scroll back to top when user changes movies
 
+ Added attribution logo and disclaimer
+
  TODO:
    -- change the css on the pulldowns because that pink and green is kind of clashy. I built it based on the old design.
 
