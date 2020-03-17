@@ -90,8 +90,8 @@ margin: 1px;
         outline: 0;
         border: 0px solid #000000;
         border-radius: 5px;
-        background: #bedaf3;
-        color: #7b8908;
+        background: #d5dfe7;
+        color: #f55d04;
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -101,8 +101,8 @@ margin: 1px;
         }
         .select select:hover,
         .select select:focus {
-            color: #fd0eff;
-            background: #acf39e;
+            color: rgb(42, 42, 206);
+            background: #ee9929;
         }
         .select select:disabled {
             opacity: 0.5;
@@ -128,7 +128,7 @@ margin: 1px;
 </head>
     <body>
        <div id="bannerDiv"> <img id ="banner" src="img/filmReel.png" style="float:left;height: 100px;margin-right: 10px;">
-        <img src="img/flix.png" style="float:left;">
+        <img src="img/flix.png" style="float:left;margin:25px 60px auto 20px;">
         <div class="select">
         <select id="yearSelect" onchange="refreshMovies(this.value)" style="vertical-align:top;margin-top:40px;"></select>
         <div class="select_arrow">
@@ -144,10 +144,17 @@ margin: 1px;
        </div>
        <div id="output" style="margin-left:60px;width:60%;float:left;clear:both;margin-top:130px;"></div>
        <div id="details">
-           <div id="pictureDiv"></div>
+           <div id="pictureDiv">
+               <div id="tempDiv" style= "margin-right:20px;background: url(img/filmReel.png);max-width:100%;text-align:center;background-size: cover;">
+                <img src="img/flix.png" style="margin:50px;transform: scale(1.5);">
+               </div> 
+            </div>
            <div id="titleDiv"></div>
            <div id="descriptionDiv"></div>
-           <div id="reviewHeader" style="text-align: center;"><img src="img/reviews.png"></div>
+           <div id="castHeader" style="text-align: center;"><img src="img/cast.png"></div>
+           <div id="castMember"></div>
+           <div id="cast" style="width:100%;margin-left:auto;margin-right:auto;margin-top:20px;"></div>
+           <div id="reviewHeader" style="text-align: center;margin-top:60px;clear: both;"><img src="img/reviews.png"></div>
            <div id="reviewsDiv"></div>
        </div>
        <script src="src/jquery-3.4.1.min.js"></script>

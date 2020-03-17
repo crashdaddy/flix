@@ -66,20 +66,58 @@ const showReviews = (id) => {
         })
 }
 
-///////////////////////////////////////////
-//
-//  Output functions
-//
+const showCast = (id) => {
+    $("#cast").html("");
+    let castURL = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${APIkey}`
+    fetch(castURL)
+    .then(res => res.json())
+        .then(cast => {
+            let htmlStr = "";
+            for (let i=0;i<cast.cast.length;i++){
+                if (cast.cast[i].profile_path){
+                htmlStr += `<div id="${cast.cast[i].id}" onclick="showCastMemberDetails(this.id)" style="margin:1px;width:61px;height:60px;float:left;">
+                            <img src="https://image.tmdb.org/t/p/w500/${cast.cast[i].profile_path}" style="border-radius:5%;width:61px;height:60px;">
+                            </div>`;
+                }
+            }
+            $("#cast").html(htmlStr);
+        })
+}
 
+// called when the user clicks one of the cast members
+const showCastMemberDetails = (id) => {
+    $("#castMember").html("");
+    let castMemberUrl = ` https://api.themoviedb.org/3/person/${id}?api_key=${APIkey}&language=en-US`;
+    fetch(castMemberUrl)
+    .then(res => res.json())
+        .then(castMember => {
+            let htmlStr = "";
+            htmlStr+=`<img src="https://image.tmdb.org/t/p/w500/${castMember.profile_path}" style="max-width:100%;">
+                      <br/>
+                      <h1>${castMember.name}</h1>
+                      <br/>
+                      Popularity: ${castMember.popularity}
+                      <br/>
+                      (b) ${castMember.birthday} ${castMember.place_of_birth} 
+                      <br/>
+                      (d) ${castMember.deathday}
+                      <br/>
+                      <p>${castMember.biography.replace(/\n/g,'<br/>')}
+                      <br/>
+                    `
+            $("#castMember").html(htmlStr);
+        })
+}
+
+// called when the user clicks one of the movie posters
 const showDetails = (id) => {
     let htmlStr  = "";
     let titleStr = "";
     let descStr  = "";
     let movieUrl = "";
-    $("#pictureDiv").html("");
-    $("#titleDiv").html("");
-    $("#descriptionDiv").html("");
-    
+
+    clearDetailsPanel();
+
     for (let i=0;i<movies.length;i++) {
         if (movies[i].id === id) {
             if (movies[i].backdrop_path) {
@@ -88,14 +126,28 @@ const showDetails = (id) => {
 
             htmlStr+= `<div><img style="max-width:100%;border-radius:5%;" src="https://image.tmdb.org/t/p/w500/${movieUrl}"></div>`;
             titleStr+= `<div><h1>${movies[i].title}</h1></div>`;
-            descStr +=  `<div style="padding-bottom:100px;">${movies[i].overview}</div>`;
+            descStr +=  `<div style="padding-bottom:50px;">${movies[i].overview}</div>`;
    
         }
     }
     $("#pictureDiv").html(htmlStr);
     $("#titleDiv").html(titleStr);
     $("#descriptionDiv").html(descStr);
+    showCast(id);
     showReviews(id);
+}
+
+// clears out the current contents of the details panel
+const clearDetailsPanel = () => {
+    let pictureDivHTML = `<div id="tempDiv" style= "margin-right:20px;background: url(img/filmReel.png);max-width:100%;text-align:center;background-size: cover;">
+    <img src="img/flix.png" style="margin:50px;transform: scale(1.5);">
+   </div> `;
+    $("#pictureDiv").html(pictureDivHTML);
+    $("#titleDiv").html("");
+    $("#descriptionDiv").html("");
+    $("#castMember").html("");
+    $("#cast").html("");
+    $("#details").scrollTop=0;
 }
 
 ///////////////////////////////////////////
@@ -106,6 +158,7 @@ const showDetails = (id) => {
 
 // called when the user changes genre
 const filterGenre = (id) => {
+    clearDetailsPanel();
     page=1;
     genre = id;
     $("#output").html("");
@@ -114,6 +167,7 @@ const filterGenre = (id) => {
 
 // called when the user changes year
 const refreshMovies = (year) => {
+    clearDetailsPanel();
     page=1;
     releaseYear=year
     document.getElementById("output").innerHTML="";
